@@ -13,7 +13,7 @@ const Perfil = ({ userName, perfilImageSrc }) => {
             src={perfilImageSrc}
             alt="Profile"
             className="img-fluid"
-            style={{ width: '100%' }}
+            style={{ width: '70%' }}
           />
         </div>
       </div>

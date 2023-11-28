@@ -12,7 +12,7 @@ const Productos = () => {
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">Productos</h2>
+      <h2 className="text-center mb-4 font-weight-bold">Productos</h2>
       {productoData && (
         <div className="card mx-auto" style={{ maxWidth: '400px' }}>
           <img
@@ -22,7 +22,7 @@ const Productos = () => {
           />
           <div className="card-body">
             <h5 className="card-title">{productoData.nombre}</h5>
-            <p className="card-text">Precio: ${productoData.precio}</p>
+            <p className="card-text font-weight-bold" ><strong>Precio:</strong> ${productoData.precio}</p>
             {!verDetalles && (
               <Link to="/detalles">
                 <button className="btn btn-primary" onClick={handleClickVerMas}>
