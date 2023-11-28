@@ -55,7 +55,7 @@ const Formulario = () => {
               placeholder="Nombre del producto"
               value={producto.nombre}
               onChange={handleChange}
-              style={{ width: '120%', marginBottom: '15px' }} // Ajusta el ancho y el margen inferior
+              style={{ width: '120%', marginBottom: '15px' }} 
               required
             />
           </div>
@@ -67,7 +67,7 @@ const Formulario = () => {
               placeholder="Precio del producto"
               value={producto.precio}
               onChange={handleChange}
-              style={{ width: '120%', marginBottom: '15px' }} // Ajusta el ancho y el margen inferior
+              style={{ width: '120%', marginBottom: '15px' }} 
               required
             />
           </div>
@@ -79,7 +79,7 @@ const Formulario = () => {
               placeholder="Descripción del producto"
               value={producto.descripcion}
               onChange={handleChange}
-              style={{ width: '150%', marginBottom: '15px' }} // Ajusta el ancho y el margen inferior
+              style={{ width: '150%', marginBottom: '15px' }} 
               required
             />
           </div>

@@ -39,7 +39,7 @@ const Registro = () => {
             placeholder="Ingrese su usuario"
             value={userData.usuario}
             onChange={handleChange}
-            style={{ width: '120%', marginBottom: '15px' }} // Ajusta el ancho y el margen inferior
+            style={{ width: '120%', marginBottom: '15px' }} 
             required
           />
         </div>
@@ -51,7 +51,7 @@ const Registro = () => {
             placeholder="Ingrese su correo"
             value={userData.correo}
             onChange={handleChange}
-            style={{ width: '120%', marginBottom: '15px' }} // Ajusta el ancho y el margen inferior
+            style={{ width: '120%', marginBottom: '15px' }} 
             required
           />
         </div>
@@ -63,7 +63,7 @@ const Registro = () => {
             placeholder="Contraseña"
             value={userData.contraseña}
             onChange={handleChange}
-            style={{ width: '120%', marginBottom: '15px' }} // Ajusta el ancho y el margen inferior
+            style={{ width: '120%', marginBottom: '15px' }} 
             required
           />
         </div>
@@ -75,7 +75,7 @@ const Registro = () => {
             placeholder="Url Imagen de Avatar"
             value={userData.avatarUrl}
             onChange={handleChange}
-            style={{ width: '120%', marginBottom: '15px' }} // Ajusta el ancho y el margen inferior
+            style={{ width: '120%', marginBottom: '15px' }} 
           />
         </div>
         <button type="submit" className="btn btn-success">
