@@ -23,14 +23,16 @@ const App = () => {
   const agregarProducto = (nuevoProducto) => {
     setListaProductos([...listaProductos, nuevoProducto]);
   };
-  return (
-    <FormularioProvider>
 
+  return (
+     /* http://localhost:3000/perfil para acceder a ruta de perfil y luego crear publicacion, ver productos y detalle de producto  */
+
+    <FormularioProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Registro />} />
+        <Route path="/login" element={<Login />} /> 
+        <Route path="/registro" element={<Registro />} />  
         <Route  path="/perfil" element={<Perfil userName="Roberto" perfilImageSrc="https://static.vecteezy.com/system/resources/previews/002/275/847/non_2x/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg" />} />
         <Route path="/formulario" element={<Formulario onAgregarProducto={agregarProducto} />} />
         <Route path="/productos" element={<Productos listaProductos={listaProductos} />} />

@@ -61,7 +61,7 @@ const Formulario = () => {
           </div>
           <div className="form-group">
             <input
-              type="text"
+              type="number"
               name="precio"
               className="form-control"
               placeholder="Precio del producto"

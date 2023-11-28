@@ -4,6 +4,17 @@ import { useFormulario } from '../context/Context';
 const Detalles = () => {
   const { productoData } = useFormulario();
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+    }).format(value);
+  };
+
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">Detalles del Producto</h2>
@@ -19,9 +30,9 @@ const Detalles = () => {
             </div>
             <div className="col-md-5">
               <div className="card-body">
-                <h3 className="card-title font-weight-bold">{productoData.nombre}</h3>
-                <p className="card-text"> <strong>Precio:</strong> ${productoData.precio}</p>
-                <p className="card-text"> <strong>Descripción:</strong> {productoData.descripcion}</p>
+                <h3 className="card-title font-weight-bold mb-4">{capitalizeFirstLetter(productoData.nombre)}</h3>
+                <p className="card-text mb-4"> <strong>Descripción:</strong> {productoData.descripcion}</p>
+                <p className="card-text"> <strong>Precio:</strong> {formatCurrency(productoData.precio)}</p>
               </div>
             </div>
           </div>
