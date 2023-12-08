@@ -1,49 +1,76 @@
-
-import React, {useState} from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
+import './App.css';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Importa el enrutador
+import Form from './components/Form';
+import Posts from './components/Posts';
 import Login from './components/Login';
 import Registro from './components/Registro';
-import Perfil from './components/Perfil';
-import Formulario from './components/Formulario';
-import Productos from './components/Productos';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { FormularioProvider } from './context/Context';
-import Detalles from './components/Detalles';
+import Perfil from './components/Profile'
+import useDeveloper from './hooks/useDeveloper'
+import Context from './contexts/Context'
+import Navigation from './components/Navigation';
+import Home from './components/Home';
+
+const urlBaseServer = 'http://localhost:3000';
 
 const App = () => {
+  const [titulo, setTitulo] = useState('');
+  const [imgSrc, setImgSRC] = useState('');
+  const [precio, setPrecio] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [posts, setPosts] = useState([]);
 
-   // const handleCreateProduct = (producto) => {
-      // se puede enviar desde aqui al servidor, pero una vez veamos backend
-    //  console.log('Producto creado:', producto);
-  //  };
-
-  const [listaProductos, setListaProductos] = useState([]);
-
-  const agregarProducto = (nuevoProducto) => {
-    setListaProductos([...listaProductos, nuevoProducto]);
+  const getPosts = async () => {
+    const { data: posts } = await axios.get(`${urlBaseServer}/posts`);
+    setPosts([...posts]);
   };
 
+  const agregarPost = async () => {
+    const post = { titulo, url: imgSrc, precio, descripcion };
+    await axios.post(`${urlBaseServer}/posts`, post);
+    getPosts();
+  }
+  ;
+
+  const like = async (id) => {
+    await axios.put(`${urlBaseServer}/posts/like/${id}`);
+    getPosts();
+  };
+
+  const eliminarPost = async (id) => {
+    await axios.delete(`${urlBaseServer}/posts/${id}`);
+    getPosts();
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  const globalState = useDeveloper()
+
+
   return (
-     /* http://localhost:3000/perfil para acceder a ruta de perfil y luego crear publicacion, ver productos y detalle de producto  */
-
-    <FormularioProvider>
+    <Context.Provider value={globalState}>
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} /> 
-        <Route path="/registro" element={<Registro />} />  
-        <Route  path="/perfil" element={<Perfil userName="Roberto" perfilImageSrc="https://static.vecteezy.com/system/resources/previews/002/275/847/non_2x/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg" />} />
-        <Route path="/formulario" element={<Formulario onAgregarProducto={agregarProducto} />} />
-        <Route path="/productos" element={<Productos listaProductos={listaProductos} />} />
-        <Route path="/detalles" element={<Detalles />} />
+    <Navigation />
+        <Routes>
+        < Route path="/" element={ <Home /> } />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registrarse" element={<Registro />} />
+          <Route
+            path="/form"
+            element={<Form setTitulo={setTitulo} setImgSRC={setImgSRC} setPrecio={setPrecio} setDescripcion={setDescripcion} agregarPost={agregarPost} />}
+          />
+          <Route
+            path="/posts"
+            element={<Posts posts={posts} like={like} eliminarPost={eliminarPost} />}
+          />
+          <Route path='/perfil' element={<Perfil />} />
 
-        
-
-      </Routes>
-    </Router>
-    </FormularioProvider>
-
+        </Routes>
+  </Router>
+  </ Context.Provider>
   );
 };
 
