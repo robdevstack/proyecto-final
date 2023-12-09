@@ -21,7 +21,7 @@ const Profile = () => {
         console.error('Error:', data);
         window.sessionStorage.removeItem('token');
         setDeveloper(null);
-        navigate('/');
+        navigate('/perfil');
       });
   };
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmlAZ21haWwuY29tIiwiaWF0IjoxNzAyMDcwNTI0fQ.Sv5dNZ36YqWJ31uVagmqjN5OvXq1BYtRw2F0JrgtaCE'; // Obtén el token del servidor o de donde sea necesario
@@ -31,7 +31,7 @@ const Profile = () => {
   return (
     <div className='py-5'>
       <h1>
-        Bienvenido <span className='fw-bold'>{getDeveloper?.email}</span>
+        Hola <span className='fw-bold'>{getDeveloper?.email}</span>
       </h1>
     </div>
   )

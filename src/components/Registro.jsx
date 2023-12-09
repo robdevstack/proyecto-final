@@ -5,7 +5,7 @@ import { ENDPOINT } from '../config/constans'
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
 const initialForm = {
-  email: 'docente@desafiolatam.com',
+  email: 'maria@example.com',
   password: '123456'
 }
 
@@ -47,7 +47,7 @@ const Registro = () => {
     <form onSubmit={handleForm} className='col-10 col-sm-6 col-md-4 m-auto mt-5 border p-4 rounded bg-light'>
       <h1 className='mb-4'>Registrar nuevo usuario</h1>
       <div className='form-group'>
-        <label>Email address</label>
+        <label>Email </label>
         <input
           value={user.email}
           onChange={handleUser}
@@ -58,7 +58,7 @@ const Registro = () => {
         />
       </div>
       <div className='form-group'>
-        <label>Password</label>
+        <label>Contraseña</label>
         <input
           value={user.password}
           onChange={handleUser}
