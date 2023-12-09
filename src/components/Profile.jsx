@@ -1,32 +1,47 @@
-import axios from 'axios'
-import Context from '../contexts/Context'
-import { useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { ENDPOINT } from '../config/constans'
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Context from '../contexts/Context';
+import { ENDPOINT } from '../config/constans';
 
 const Profile = () => {
-  const navigate = useNavigate()
-  const { getDeveloper, setDeveloper } = useContext(Context)
+  const navigate = useNavigate();
+  const { getDeveloper, setDeveloper } = useContext(Context);
 
-  const getDeveloperData = () => {
-    const token = window.sessionStorage.getItem('token');
-    console.log('Token:', token);
-  
-    axios.get(ENDPOINT.users, { headers: { Authorization: `Bearer ${token}` } })
-      .then(({ data: [user] }) => {
-        console.log('User Data:', user);
-        setDeveloper({ ...user });
-      })
-      .catch(({ response: { data } }) => {
-        console.error('Error:', data);
-        window.sessionStorage.removeItem('token');
-        setDeveloper(null);
-        navigate('/perfil');
+  const getDeveloperData = async () => {
+    try {
+      const token = window.sessionStorage.getItem('token');
+      console.log('Token:', token);
+
+      const response = await axios.get(ENDPOINT.users, {
+        headers: { Authorization: `Bearer ${token}` },
       });
+
+      const [user] = response.data;
+      console.log('User Data:', user);
+      setDeveloper({ ...user });
+    } catch (error) {
+      console.error('Error:', error.response?.data || error.message);
+
+      // Handle unauthorized access
+      window.sessionStorage.removeItem('token');
+      setDeveloper(null);
+      navigate('/');
+    }
   };
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmlAZ21haWwuY29tIiwiaWF0IjoxNzAyMDcwNTI0fQ.Sv5dNZ36YqWJ31uVagmqjN5OvXq1BYtRw2F0JrgtaCE'; // Obtén el token del servidor o de donde sea necesario
-  window.sessionStorage.setItem('token', token);
-  useEffect(getDeveloperData, [])
+
+  useEffect(() => {
+    const token = window.sessionStorage.getItem('token');
+
+    // Check if the user is authenticated
+    if (!token) {
+      navigate('/'); // Redirect to login page if not authenticated
+      return;
+    }
+
+    // Fetch user data if authenticated
+    getDeveloperData();
+  }, [navigate]);
 
   return (
     <div className='py-5'>
@@ -34,7 +49,7 @@ const Profile = () => {
         Hola <span className='fw-bold'>{getDeveloper?.email}</span>
       </h1>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
