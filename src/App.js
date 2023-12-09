@@ -33,22 +33,13 @@ const App = () => {
   }
   ;
 
-  const like = async (id) => {
-    await axios.put(`${urlBaseServer}/posts/like/${id}`);
-    getPosts();
-  };
-
-  const eliminarPost = async (id) => {
-    await axios.delete(`${urlBaseServer}/posts/${id}`);
-    getPosts();
-  };
-
   useEffect(() => {
     getPosts();
   }, []);
 
   const globalState = useDeveloper()
 
+  // ruta /form para formulario y /posts para los productos creados desde form
 
   return (
     <Context.Provider value={globalState}>
@@ -64,7 +55,7 @@ const App = () => {
           />
           <Route
             path="/posts"
-            element={<Posts posts={posts} like={like} eliminarPost={eliminarPost} />}
+            element={<Posts posts={posts} />}
           />
           <Route path='/perfil' element={<Perfil />} />
 
